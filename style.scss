@@ -1,0 +1,187 @@
+// Colors
+$red: #f56666;
+$green: #50ef87;
+$white: #fff;
+$gray-light: #e1e1e1;
+$black: #070707;
+$blue: #3f5e92;
+$blue-gray: #2a3546;
+$blue-dark: #1d242f;
+// Fonts
+@import url("https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700");
+$monospace: "Source Code Pro",
+monospace;
+body {
+    font-family: $monospace;
+}
+
+// Layout
+body {
+    align-items: center;
+    background: $blue-gray;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+// Combination Lock
+#combo-lock {
+    transform: scale(300%);
+    .raw {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 0 auto 24px;
+    }
+    .countdown,
+    .life {
+        .countdown-container,
+        .life-container {
+            width: fit-content;
+            border: $black 2px solid;
+            color: $gray-light;
+            background-color: $blue-dark;
+            padding: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+    }
+    .countdown {
+        display: flex;
+        justify-content: flex-end;
+    }
+    #indicator {
+        border: 2px solid $black;
+        border-radius: 50%;
+        height: 32px;
+        overflow: hidden;
+        position: relative;
+        width: 32px;
+        &.locked {
+            svg.unlocked {
+                transform: translate(-50%, 50%);
+            }
+        }
+        &.unlocked {
+            svg.locked {
+                transform: translate(-50%, -100%);
+            }
+            svg.unlocked {
+                transform: translate(-50%, -50%);
+            }
+        }
+        svg {
+            padding: 16px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            transition: transform 0.25s ease;
+            width: 16px;
+            &.locked {
+                background: $red;
+            }
+            &.unlocked {
+                background: $green;
+            }
+        }
+    }
+    #combination {
+        border: 2px solid $black;
+        border-radius: 4px;
+        display: flex;
+        gap: 10px;
+        padding-inline: 10px;
+        .wheel {
+            font-size: 24px;
+            text-align: center;
+            .increment,
+            .decrement {
+                background: $blue-dark;
+                border: 2px solid $black;
+                border-radius: 50%;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 24px;
+                position: relative;
+                transition: border-color 0.1s ease;
+                width: 24px;
+                &:active {
+                    border-color: $white;
+                }
+                &.click {
+                    border-color: $white;
+                    transition: border-color 0s ease;
+                }
+                img {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    width: 24px;
+                }
+            }
+            .increment {
+                margin-top: -14px;
+            }
+            .decrement {
+                margin-bottom: -14px;
+            }
+            .digit {
+                -moz-appearance: textfield;
+                background: $blue-dark;
+                border: 2px solid $black;
+                border-radius: 24px;
+                caret-color: transparent;
+                color: $white;
+                cursor: pointer;
+                margin: 8px 0;
+                outline: none;
+                padding: 8px 0;
+                position: relative;
+                text-align: center;
+                user-select: none;
+                transition: border-color 0.1s ease;
+                width: 24px;
+                &:focus {
+                    border-color: $white;
+                }
+                &::-webkit-inner-spin-button,
+                &::-webkit-outer-spin-button {
+                    -webkit-appearance: none;
+                    margin: 0;
+                }
+                &::selection {
+                    background: transparent;
+                }
+            }
+            &:nth-child(1) .digit {
+                color: $red;
+            }
+            &:nth-child(2) .digit {}
+            &:nth-child(3) .digit {
+                &:focus {
+                    background: -webkit-linear-gradient($red, $blue);
+                }
+            }
+            &:nth-child(4) .digit {
+                color: $blue-dark;
+                &:focus {
+                    background: $blue-gray;
+                }
+            }
+            &:nth-child(5) .digit {
+                color: $blue;
+            }
+            &:nth-child(6) .digit {
+                &:focus {
+                    background: -webkit-linear-gradient($blue, $red);
+                }
+            }
+        }
+    }
+}
